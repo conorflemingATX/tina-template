@@ -1,16 +1,11 @@
-import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import { Wrapper, Main } from "./style"
-import { SEO } from "./seo"
-import { ThemeContext } from "./theme"
-import { Hero } from "./hero"
-import { removeNull } from "./helpers"
-import { NavForm } from "./nav"
-import { ThemeForm } from "./theme"
+import React from "react";
+import { useStaticQuery, graphql } from "gatsby";
+import { Wrapper, Main } from "./style";
+import { SEO } from "./seo";
+import { NavForm } from "./nav";
+import { ThemeForm /* ThemeContext */ } from "./theme";
 
-import { useLocalJsonForm, useGlobalJsonForm } from "gatsby-tinacms-json"
-
-const merge = require("lodash.merge")
+import { useLocalJsonForm, useGlobalJsonForm } from "gatsby-tinacms-json";
 
 export const PageLayout = ({ page, children }) => {
   const data = useStaticQuery(graphql`
@@ -26,7 +21,7 @@ export const PageLayout = ({ page, children }) => {
       theme: settingsJson(
         fileRelativePath: { eq: "/content/settings/theme.json" }
       ) {
-        ...globalTheme
+        name
 
         rawJson
         fileRelativePath
@@ -43,35 +38,33 @@ export const PageLayout = ({ page, children }) => {
         fileRelativePath
       }
     }
-  `)
+  `);
 
-  const [nav] = useLocalJsonForm(data.nav, NavForm)
-  const [globalTheme] = useLocalJsonForm(data.theme, ThemeForm)
-  const [site] = useGlobalJsonForm(data.site, SiteForm)
+  const [_nav] = useLocalJsonForm(data.nav, NavForm);
+  const [_globalTheme] = useLocalJsonForm(data.theme, ThemeForm);
+  const [_site] = useGlobalJsonForm(data.site, SiteForm);
 
-  const themeContext = React.useContext(ThemeContext)
-  const theme = themeContext.theme
+  // Theme information -- re-enable when theme is better fleshed out.
+  // const themeContext = React.useContext(ThemeContext);
+
+  // What is the difference between page and page.frontmatter?
+  // I suppose that page.title are pages, and page.frontmatter are posts.
   const pageTitle =
     page && page.title
       ? page.title
       : page && page.frontmatter && page.frontmatter.title
       ? page.frontmatter.title
-      : ""
-  const pageHero = page.frontmatter ? page.frontmatter.hero : page.hero
-  const hero = pageHero
-    ? merge({}, theme.hero, removeNull(pageHero))
-    : theme.hero
+      : "";
 
   return (
     <>
       {pageTitle && <SEO title={pageTitle} />}
-      <Hero hero={hero} />
       <Main>
         <Wrapper>{children}</Wrapper>
       </Main>
     </>
-  )
-}
+  );
+};
 
 const SiteForm = {
   label: "Site",
@@ -81,32 +74,32 @@ const SiteForm = {
       name: "rawJson.logo",
       component: "text",
       parse(value) {
-        return value || ""
-      },
+        return value || "";
+      }
     },
     {
       label: "Title",
       name: "rawJson.title",
       component: "text",
       parse(value) {
-        return value || ""
-      },
+        return value || "";
+      }
     },
     {
       label: "Description",
       name: "rawJson.description",
       component: "text",
       parse(value) {
-        return value || ""
-      },
+        return value || "";
+      }
     },
     {
       label: "Author",
       name: "rawJson.author",
       component: "text",
       parse(value) {
-        return value || ""
-      },
-    },
-  ],
-}
+        return value || "";
+      }
+    }
+  ]
+};

@@ -1,7 +1,6 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
-import { GlobalStyles } from "./style";
 
 export const ThemeContext = React.createContext();
 
@@ -21,10 +20,7 @@ export const Theme = ({ children }) => {
       <ThemeContext.Consumer>
         {({ theme }) => (
           <ThemeProvider theme={theme}>
-            <>
-              <GlobalStyles />
-              {children}
-            </>
+            <>{children}</>
           </ThemeProvider>
         )}
       </ThemeContext.Consumer>

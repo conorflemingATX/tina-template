@@ -1,12 +1,10 @@
-import React from "react"
-import { Button } from "../components/style"
-import styled, { css } from "styled-components"
-import { mix } from "polished"
-import slugify from "react-slugify"
+import React from "react";
+import slugify from "react-slugify";
 
+// !! CHANGE CONTACT FORM SO IT DOESNT GO ANYWHERE!!
 export function Form({ form }) {
   return (
-    <StyledForm
+    <form
       name="contact"
       action={`https://formspree.io/${form.recipient}`}
       method="POST"
@@ -14,7 +12,7 @@ export function Form({ form }) {
       {form.fields.map(field => {
         if (field.inputType === "textarea") {
           return (
-            <FormField wide>
+            <>
               <label for={slugify(field.label)}>{field.label}</label>
               <textarea
                 cols="40"
@@ -22,11 +20,11 @@ export function Form({ form }) {
                 name={slugify(field.label)}
                 id={slugify(field.label)}
               ></textarea>
-            </FormField>
-          )
+            </>
+          );
         } else {
           return (
-            <FormField>
+            <>
               <label for={slugify(field.label)}>{field.label}</label>
               <input
                 id={slugify(field.label)}
@@ -35,19 +33,17 @@ export function Form({ form }) {
                 autocorrect="off"
                 autocomplete={field.autocomplete | ``}
               />
-            </FormField>
-          )
+            </>
+          );
         }
       })}
       {form.fields.length > 0 && (
-        <FormField wide>
-          <Button primary type="submit" value="Submit">
-            Submit
-          </Button>
-        </FormField>
+        <button type="submit" value="Submit">
+          Submit
+        </button>
       )}
-    </StyledForm>
-  )
+    </form>
+  );
 }
 
 const base = {
@@ -57,64 +53,64 @@ const base = {
   fields: [
     { name: "label", label: "Label", component: "text" },
     { name: "inputType", label: "Input Type", component: "text" },
-    { name: "autocomplete", label: "Autocomplete", component: "text" },
-  ],
-}
+    { name: "autocomplete", label: "Autocomplete", component: "text" }
+  ]
+};
 
 export const customInputBlock = {
   label: "Custom Input",
-  ...base,
-}
+  ...base
+};
 
 export const nameInputBlock = {
   label: "Name Input",
   defaultItem: {
     label: "Name",
     inputType: "text",
-    autocomplete: "name",
+    autocomplete: "name"
   },
-  ...base,
-}
+  ...base
+};
 
 export const emailInputBlock = {
   label: "Email Input",
   defaultItem: {
     label: "Email",
     inputType: "text",
-    autocomplete: "email",
+    autocomplete: "email"
   },
-  ...base,
-}
+  ...base
+};
 
 export const phoneInputBlock = {
   label: "Phone Input",
   defaultItem: {
     label: "Phone",
     inputType: "text",
-    autocomplete: "tel",
+    autocomplete: "tel"
   },
-  ...base,
-}
+  ...base
+};
 
 export const companyInputBlock = {
   label: "Company Input",
   defaultItem: {
     label: "Company",
     inputType: "text",
-    autocomplete: "organization",
+    autocomplete: "organization"
   },
-  ...base,
-}
+  ...base
+};
 
 export const messageInputBlock = {
   label: "Message Input",
   defaultItem: {
     label: "Message",
     inputType: "textarea",
-    autocomplete: "",
+    autocomplete: ""
   },
-  ...base,
-}
+  ...base
+};
 
 export const FormBlock = {
   label: "Form",
@@ -124,7 +120,7 @@ export const FormBlock = {
   defaultItem: {
     name: "Form",
     recipient: "",
-    fields: [],
+    fields: []
   },
   fields: [
     { name: "name", label: "Name", component: "text" },
@@ -132,7 +128,7 @@ export const FormBlock = {
       name: "recipient",
       label: "Recipient",
       description: "Form is sent via formspree.io.",
-      component: "text",
+      component: "text"
     },
     {
       label: "Fields",
@@ -144,68 +140,8 @@ export const FormBlock = {
         emailInputBlock,
         phoneInputBlock,
         companyInputBlock,
-        messageInputBlock,
-      },
-    },
-  ],
-}
-
-export const StyledForm = styled.form`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  grid-gap: 1.5rem;
-  justify-items: stretch;
-
-  @media (min-width: ${props => props.theme.breakpoints.medium}) {
-    grid-template-columns: 1fr 1fr;
-  }
-`
-
-export const FormField = styled.div`
-  input,
-  textarea {
-    position: relative;
-    line-height: 2.25rem;
-    font-size: 1rem;
-    padding: 0 0.625rem;
-    border-radius: ${props => props.theme.radius.small};
-    border: none;
-    width: 100%;
-    transition: box-shadow 150ms ${props => props.theme.easing};
-    color: ${props => props.theme.color.foreground};
-    background-color: ${props =>
-      mix(0.95, props.theme.color.background, props.theme.color.foreground)};
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px ${props => props.theme.color.secondary};
-    }
-
-    ${props =>
-      props.theme.isDarkMode &&
-      css`
-        background-color: ${props => props.theme.color.background};
-      `};
-  }
-
-  textarea {
-    line-height: 1.5;
-    padding: 0.5rem 0.625rem;
-    resize: vertical;
-  }
-
-  label {
-    display: block;
-    margin-bottom: 0.25rem;
-  }
-
-  ${p =>
-    p.wide &&
-    css`
-      @media (min-width: ${props => props.theme.breakpoints.medium}) {
-        grid-column-start: 1;
-        grid-column-end: 3;
+        messageInputBlock
       }
-    `};
-`
+    }
+  ]
+};

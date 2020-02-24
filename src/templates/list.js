@@ -1,30 +1,23 @@
-import React from "react"
-import { graphql } from "gatsby"
-import styled from "styled-components"
-import {
-  Paper,
-  Meta,
-  MetaSpan,
-  MetaActions,
-  DraftBadge,
-} from "../components/style"
-import { ListAuthors, AuthorsForm } from "../components/authors"
-import { Link } from "gatsby"
-import { PageLayout } from "../components/pageLayout"
+import React from "react";
+import { graphql } from "gatsby";
+import { ListAuthors, AuthorsForm } from "../components/authors";
+import { Link } from "gatsby";
+import { PageLayout } from "../components/pageLayout";
 
-import { useLocalJsonForm } from "gatsby-tinacms-json"
+import { useLocalJsonForm } from "gatsby-tinacms-json";
+import { DraftBadge } from "../components/style";
 
 export default function List({ data, pageContext }) {
-  const [page] = useLocalJsonForm(data.page, ListForm)
-  const [authors] = useLocalJsonForm(data.authors, AuthorsForm)
+  const [page] = useLocalJsonForm(data.page, ListForm);
+  const [_authors] = useLocalJsonForm(data.authors, AuthorsForm);
 
-  const { slug, limit, skip, numPages, currentPage } = pageContext
-  const isFirst = currentPage === 1
-  const isLast = currentPage === numPages
+  const { slug, _limit, _skip, numPages, currentPage } = pageContext;
+  const isFirst = currentPage === 1;
+  const isLast = currentPage === numPages;
   const prevPage =
-    currentPage - 1 === 1 ? slug : slug + "/" + (currentPage - 1).toString()
-  const nextPage = slug + "/" + (currentPage + 1).toString()
-  page.title = isFirst ? page.title : page.title + " - " + currentPage
+    currentPage - 1 === 1 ? slug : slug + "/" + (currentPage - 1).toString();
+  const nextPage = slug + "/" + (currentPage + 1).toString();
+  page.title = isFirst ? page.title : page.title + " - " + currentPage;
 
   return (
     <PageLayout page={page}>
@@ -32,30 +25,30 @@ export default function List({ data, pageContext }) {
         {data.posts &&
           data.posts.edges.map(item => {
             return (
-              <Paper article key={item.node.id}>
-                {item.node.frontmatter.draft && <DraftBadge>Draft</DraftBadge>}
+              <div key={item.node.id}>
+                {item.node.frontmatter.draft && <span>Draft</span>}
                 <h2>
                   <Link to={item.node.frontmatter.path}>
                     {item.node.frontmatter.title}
                   </Link>
                 </h2>
                 <p>{item.node.excerpt}</p>
-                <Meta>
-                  <MetaSpan>{item.node.frontmatter.date}</MetaSpan>
+                <div>
+                  <span>{item.node.frontmatter.date}</span>
                   {item.node.frontmatter.authors && (
-                    <MetaSpan>
+                    <span>
                       <em>By</em>&nbsp;
                       <ListAuthors authorIDs={item.node.frontmatter.authors} />
-                    </MetaSpan>
+                    </span>
                   )}
-                  <MetaActions>
+                  <span>
                     <Link to={item.node.frontmatter.path}>Read Article →</Link>
-                  </MetaActions>
-                </Meta>
-              </Paper>
-            )
+                  </span>
+                </div>
+              </div>
+            );
           })}
-        <ListNav>
+        <div>
           {!isFirst && (
             <Link to={prevPage} rel="prev">
               ← Newer
@@ -66,10 +59,10 @@ export default function List({ data, pageContext }) {
               Older →
             </Link>
           )}
-        </ListNav>
+        </div>
       </>
     </PageLayout>
-  )
+  );
 }
 
 export const pageQuery = graphql`
@@ -132,18 +125,7 @@ export const pageQuery = graphql`
       fileRelativePath
     }
   }
-`
-
-export const ListNav = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: center;
-
-  a {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-  }
-`
+`;
 
 const ListForm = {
   label: "Page",
@@ -151,7 +133,7 @@ const ListForm = {
     {
       label: "Title",
       name: "rawJson.title",
-      component: "text",
+      component: "text"
     },
     {
       label: "Hero",
@@ -161,12 +143,12 @@ const ListForm = {
         {
           label: "Headline",
           name: "headline",
-          component: "text",
+          component: "text"
         },
         {
           label: "Textline",
           name: "textline",
-          component: "text",
+          component: "text"
         },
         {
           label: "Image",
@@ -176,9 +158,9 @@ const ListForm = {
           uploadDir: () => `/content/images/`,
           previewSrc: formValues => {
             if (!formValues.jsonNode.hero || !formValues.jsonNode.hero.image)
-              return ""
-            return formValues.jsonNode.hero.image.childImageSharp.fluid.src
-          },
+              return "";
+            return formValues.jsonNode.hero.image.childImageSharp.fluid.src;
+          }
         },
         {
           label: "Actions",
@@ -186,37 +168,37 @@ const ListForm = {
           component: "group-list",
           itemProps: item => ({
             key: item.link,
-            label: item.label,
+            label: item.label
           }),
           fields: [
             {
               label: "Label",
               name: "label",
-              component: "text",
+              component: "text"
             },
             {
               label: "Link",
               name: "link",
-              component: "text",
+              component: "text"
             },
             {
               label: "Primary",
               name: "primary",
-              component: "toggle",
+              component: "toggle"
             },
             {
               label: "Arrow",
               name: "arrow",
-              component: "toggle",
-            },
-          ],
+              component: "toggle"
+            }
+          ]
         },
         {
           label: "Large",
           name: "large",
-          component: "toggle",
-        },
-      ],
-    },
-  ],
-}
+          component: "toggle"
+        }
+      ]
+    }
+  ]
+};

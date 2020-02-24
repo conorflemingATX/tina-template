@@ -1,30 +1,29 @@
-import React from "react"
-import { graphql } from "gatsby"
-import { Paper } from "../components/style"
-import { Form, FormBlock } from "../blocks/form"
-import { Title, TitleBlock } from "../blocks/title"
-import { Image, ImageBlock } from "../blocks/image"
-import { Content, ContentBlock } from "../blocks/content"
-import { PageLayout } from "../components/pageLayout"
+import React from "react";
+import { graphql } from "gatsby";
+import { Form, FormBlock } from "../blocks/form";
+import { Title, TitleBlock } from "../blocks/title";
+import { Image, ImageBlock } from "../blocks/image";
+import { Content, ContentBlock } from "../blocks/content";
+import { PageLayout } from "../components/pageLayout";
 
-import { useLocalJsonForm } from "gatsby-tinacms-json"
+import { useLocalJsonForm } from "gatsby-tinacms-json";
 
 export default function Page({ data }) {
-  const [page] = useLocalJsonForm(data.page, PageForm)
-  const blocks = page.blocks ? page.blocks : []
+  const [page] = useLocalJsonForm(data.page, PageForm);
+  const blocks = page.blocks ? page.blocks : [];
 
   return (
     <PageLayout page={page}>
-      <Paper>
+      <>
         {blocks &&
           blocks.map(({ _template, ...data }, i) => {
             switch (_template) {
               case "TitleBlock":
-                return <Title page={page} data={data} />
+                return <Title page={page} data={data} />;
               case "ImageBlock":
-                return <Image data={data} />
+                return <Image data={data} />;
               case "FormBlock":
-                return <Form form={data} />
+                return <Form form={data} />;
               case "ContentBlock":
                 if (data.content && page.childrenPagesJsonBlockMarkdown[i])
                   return (
@@ -35,15 +34,15 @@ export default function Page({ data }) {
                           .childMarkdownRemark.html
                       }
                     />
-                  )
-                break
+                  );
+                break;
               default:
-                return true
+                return true;
             }
           })}
-      </Paper>
+      </>
     </PageLayout>
-  )
+  );
 }
 
 const PageForm = {
@@ -52,7 +51,7 @@ const PageForm = {
     {
       label: "Title",
       name: "rawJson.title",
-      component: "text",
+      component: "text"
     },
     {
       label: "Hero",
@@ -62,12 +61,12 @@ const PageForm = {
         {
           label: "Headline",
           name: "headline",
-          component: "text",
+          component: "text"
         },
         {
           label: "Textline",
           name: "textline",
-          component: "text",
+          component: "text"
         },
         {
           label: "Image",
@@ -77,9 +76,9 @@ const PageForm = {
           uploadDir: () => `/content/images/`,
           previewSrc: formValues => {
             if (!formValues.jsonNode.hero || !formValues.jsonNode.hero.image)
-              return ""
-            return formValues.jsonNode.hero.image.childImageSharp.fluid.src
-          },
+              return "";
+            return formValues.jsonNode.hero.image.childImageSharp.fluid.src;
+          }
         },
         {
           label: "Actions",
@@ -87,37 +86,37 @@ const PageForm = {
           component: "group-list",
           itemProps: item => ({
             key: item.link,
-            label: item.label,
+            label: item.label
           }),
           fields: [
             {
               label: "Label",
               name: "label",
-              component: "text",
+              component: "text"
             },
             {
               label: "Link",
               name: "link",
-              component: "text",
+              component: "text"
             },
             {
               label: "Primary",
               name: "primary",
-              component: "toggle",
+              component: "toggle"
             },
             {
               label: "Arrow",
               name: "arrow",
-              component: "toggle",
-            },
-          ],
+              component: "toggle"
+            }
+          ]
         },
         {
           label: "Large",
           name: "large",
-          component: "toggle",
-        },
-      ],
+          component: "toggle"
+        }
+      ]
     },
     {
       label: "Page Sections",
@@ -127,11 +126,11 @@ const PageForm = {
         TitleBlock,
         ImageBlock,
         FormBlock,
-        ContentBlock,
-      },
-    },
-  ],
-}
+        ContentBlock
+      }
+    }
+  ]
+};
 
 export const pageQuery = graphql`
   query($path: String!) {
@@ -188,4 +187,4 @@ export const pageQuery = graphql`
       fileRelativePath
     }
   }
-`
+`;

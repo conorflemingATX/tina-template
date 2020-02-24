@@ -1,6 +1,5 @@
 import React from "react";
 import { useStaticQuery, graphql } from "gatsby";
-import { Wrapper, Main } from "./style";
 import { SEO } from "./seo";
 import { NavForm } from "./nav";
 import { ThemeForm /* ThemeContext */ } from "./theme";
@@ -13,7 +12,10 @@ export const PageLayout = ({ page, children }) => {
       nav: settingsJson(
         fileRelativePath: { eq: "/content/settings/menu.json" }
       ) {
-        ...nav
+        menuItems {
+          label
+          link
+        }
 
         rawJson
         fileRelativePath
@@ -59,9 +61,7 @@ export const PageLayout = ({ page, children }) => {
   return (
     <>
       {pageTitle && <SEO title={pageTitle} />}
-      <Main>
-        <Wrapper>{children}</Wrapper>
-      </Main>
+      <main>{children}</main>
     </>
   );
 };

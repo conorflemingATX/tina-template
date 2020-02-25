@@ -1,16 +1,16 @@
-import React from "react"
-import styled, { css } from "styled-components"
+import React from "react";
+import styled, { css } from "styled-components";
 
 export function Content({ data, html }) {
-  const centered = data.center ? data.center : false
+  const centered = data.center ? data.center : false;
   return (
     <StyledContent
       center={centered}
       dangerouslySetInnerHTML={{
-        __html: html,
+        __html: html
       }}
     ></StyledContent>
-  )
+  );
 }
 
 const StyledContent = styled.div`
@@ -19,7 +19,7 @@ const StyledContent = styled.div`
     css`
       text-align: center;
     `};
-`
+`;
 
 export const ContentBlock = {
   label: "Content",
@@ -27,10 +27,10 @@ export const ContentBlock = {
   key: "test",
   defaultItem: {
     content: "",
-    center: false,
+    center: false
   },
   fields: [
     { name: "content", label: "Content", component: "markdown" },
-    { name: "center", label: "Center", component: "toggle" },
-  ],
-}
+    { name: "center", label: "Center", component: "toggle" }
+  ]
+};

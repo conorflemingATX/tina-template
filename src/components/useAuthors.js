@@ -1,5 +1,5 @@
-import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import React from "react";
+import { useStaticQuery, graphql } from "gatsby";
 
 export const useAuthors = () => {
   const { settingsJson } = useStaticQuery(
@@ -12,10 +12,10 @@ export const useAuthors = () => {
         }
       }
     `
-  )
+  );
 
-  return settingsJson.authors
-}
+  return settingsJson.authors;
+};
 
 export const authorsFragment = graphql`
   fragment authors on SettingsJson {
@@ -26,4 +26,4 @@ export const authorsFragment = graphql`
       link
     }
   }
-`
+`;

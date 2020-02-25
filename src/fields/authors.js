@@ -1,28 +1,28 @@
-import React from "react"
-import styled, { css } from "styled-components"
-import { Droppable, Draggable } from "react-beautiful-dnd"
-import { AddIcon, DragIcon, ReorderIcon, TrashIcon } from "@tinacms/icons"
+import React from "react";
+import styled, { css } from "styled-components";
+import { Droppable, Draggable } from "react-beautiful-dnd";
+import { AddIcon, DragIcon, ReorderIcon, TrashIcon } from "@tinacms/icons";
 import {
   padding,
   color,
   radius,
   font,
   IconButton,
-  shadow,
-} from "@tinacms/styles"
+  shadow
+} from "@tinacms/styles";
 
 export const AuthorsField = props => {
-  const { input, field, form } = props
-  const [visible, setVisible] = React.useState(false)
-  const authors = field.authors
-  const authorIDs = input.value || []
+  const { input, field, form } = props;
+  const [visible, setVisible] = React.useState(false);
+  const authors = field.authors;
+  const authorIDs = input.value || [];
 
   const addAuthor = React.useCallback(
     authorID => {
-      form.mutators.insert(field.name, 0, authorID)
+      form.mutators.insert(field.name, 0, authorID);
     },
     [field.name, form.mutators]
-  )
+  );
 
   return (
     <>
@@ -41,8 +41,8 @@ export const AuthorsField = props => {
             {authors.map(author => (
               <AuthorOption
                 onClick={() => {
-                  addAuthor(author.id)
-                  setVisible(false)
+                  addAuthor(author.id);
+                  setVisible(false);
                 }}
               >
                 {author.name}
@@ -58,7 +58,7 @@ export const AuthorsField = props => {
               <EmptyList>There's no authors</EmptyList>
             )}
             {authorIDs.map((authorID, index) => {
-              const author = authors.find(author => author.id === authorID)
+              const author = authors.find(author => author.id === authorID);
               return (
                 <AuthorListItem
                   author={author}
@@ -66,20 +66,20 @@ export const AuthorsField = props => {
                   field={field}
                   index={index}
                 ></AuthorListItem>
-              )
+              );
             })}
             {provider.placeholder}
           </AuthorList>
         )}
       </Droppable>
     </>
-  )
-}
+  );
+};
 
 const AuthorListItem = ({ author, form, field, index }) => {
   const removeAuthor = React.useCallback(() => {
-    form.mutators.remove(field.name, index)
-  }, [form, field, index])
+    form.mutators.remove(field.name, index);
+  }, [form, field, index]);
 
   return (
     <Draggable
@@ -109,17 +109,17 @@ const AuthorListItem = ({ author, form, field, index }) => {
         </ListItem>
       )}
     </Draggable>
-  )
-}
+  );
+};
 
 const AuthorList = styled.div`
   margin-bottom: 1.5rem;
-`
+`;
 
 const Placeholder = styled.span`
   opacity: 0.3;
   text-transform: italic;
-`
+`;
 
 const ItemLabel = styled.label`
   margin: 0;
@@ -141,7 +141,7 @@ const ItemLabel = styled.label`
     css`
       color: ${color.error()} !important;
     `};
-`
+`;
 
 const DragHandle = styled(function DragHandle({ ...styleProps }) {
   return (
@@ -149,7 +149,7 @@ const DragHandle = styled(function DragHandle({ ...styleProps }) {
       <DragIcon />
       <ReorderIcon />
     </div>
-  )
+  );
 })`
   margin: 0;
   flex: 0 0 auto;
@@ -170,7 +170,7 @@ const DragHandle = styled(function DragHandle({ ...styleProps }) {
   svg:last-child {
     opacity: 0;
   }
-`
+`;
 
 const DeleteButton = styled.button`
   text-align: center;
@@ -184,7 +184,7 @@ const DeleteButton = styled.button`
   &:hover {
     background-color: ${color.grey(2)};
   }
-`
+`;
 
 const ListItem = styled.div`
   position: relative;
@@ -277,7 +277,7 @@ const ListItem = styled.div`
         }
       }
     `};
-`
+`;
 
 const EmptyList = styled.div`
   text-align: center;
@@ -288,7 +288,7 @@ const EmptyList = styled.div`
   padding: 0.75rem 0;
   font-size: ${font.size(2)};
   font-weight: 500;
-`
+`;
 
 const AuthorsHeader = styled.div`
   position: relative;
@@ -296,7 +296,7 @@ const AuthorsHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.75rem;
-`
+`;
 
 const FieldLabel = styled.label`
   margin: 0;
@@ -315,7 +315,7 @@ const FieldLabel = styled.label`
     css`
       color: ${color.error()} !important;
     `};
-`
+`;
 
 const AuthorMenu = styled.div`
   min-width: 12rem;
@@ -341,12 +341,12 @@ const AuthorMenu = styled.div`
       pointer-events: all;
       transform: translate3d(0, 2.25rem, 0) scale3d(1, 1, 1);
     `};
-`
+`;
 
 const AuthorMenuList = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 const AuthorOption = styled.button`
   position: relative;
@@ -367,4 +367,4 @@ const AuthorOption = styled.button`
   &:not(:last-child) {
     border-bottom: 1px solid #efefef;
   }
-`
+`;

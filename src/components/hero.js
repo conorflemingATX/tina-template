@@ -1,8 +1,8 @@
-import React from "react"
-import styled, { css } from "styled-components"
-import { transparentize } from "polished"
-import { Wrapper, Overlay, LinkButton } from "../components/style"
-import BackgroundImage from "gatsby-background-image"
+import React from "react";
+import styled, { css } from "styled-components";
+import { transparentize } from "polished";
+import { Wrapper, Overlay, LinkButton } from "../components/style";
+import BackgroundImage from "gatsby-background-image";
 
 export const Hero = ({ hero }) => {
   return (
@@ -29,7 +29,7 @@ export const Hero = ({ hero }) => {
                       {hero.ctas[key].label}
                       {hero.ctas[key].arrow && <span>&nbsp;&nbsp;→</span>}
                     </LinkButton>
-                  )
+                  );
                 })}
               </Actions>
             )}
@@ -37,8 +37,8 @@ export const Hero = ({ hero }) => {
         </HeroContent>
       )}
     </HeroWrapper>
-  )
-}
+  );
+};
 
 const HeroWrapper = styled.div`
   position: relative;
@@ -55,7 +55,7 @@ const HeroWrapper = styled.div`
     css`
       transform-style: preserve-3d;
     `}
-`
+`;
 
 const HeroContent = styled.div`
   display: block;
@@ -66,7 +66,7 @@ const HeroContent = styled.div`
     css`
       padding: 8rem 0;
     `}
-`
+`;
 
 const HeroBackground = styled.div`
   position: absolute !important;
@@ -91,7 +91,7 @@ const HeroBackground = styled.div`
       transform-style: preserve-3d;
       transform: translateZ(-1px) scale(2) translateY(25%);
     `}
-`
+`;
 
 export const Headline = styled.h2`
   font-size: 2.6em;
@@ -100,7 +100,7 @@ export const Headline = styled.h2`
   word-spacing: 1px;
   font-weight: 700;
   text-transform: none;
-`
+`;
 
 export const Textline = styled.p`
   font-size: 1.3rem;
@@ -110,14 +110,14 @@ export const Textline = styled.p`
   font-weight: 500;
   text-transform: none;
   padding-bottom: 0.3rem;
-`
+`;
 
 export const Actions = styled.div`
   padding-bottom: 0.5rem;
   > * {
     margin-right: 1rem;
   }
-`
+`;
 
 export const HeroImage = styled(BackgroundImage)`
   position: absolute !important;
@@ -129,4 +129,4 @@ export const HeroImage = styled(BackgroundImage)`
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-`
+`;

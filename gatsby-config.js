@@ -1,5 +1,5 @@
-const theme = require("./content/settings/theme.json")
-const site = require("./content/settings/site.json")
+/* const theme = require("./content/settings/theme.json"); */
+const site = require("./content/settings/site.json");
 
 module.exports = {
   plugins: [
@@ -12,39 +12,30 @@ module.exports = {
       options: {
         sidebar: {
           hidden: process.env.NODE_ENV === "production",
-          position: "displace",
-          theme: {
-            color: {
-              primary: {
-                light: theme.color.primary,
-                medium: theme.color.primary,
-                dark: theme.color.primary,
-              },
-            },
-          },
+          position: "displace"
         },
-        plugins: ["gatsby-tinacms-git", "gatsby-tinacms-remark"],
-      },
+        plugins: ["gatsby-tinacms-git", "gatsby-tinacms-remark"]
+      }
     },
     {
       resolve: "gatsby-source-filesystem",
       options: {
         path: `${__dirname}/static/images`,
-        name: `uploads`,
-      },
+        name: `uploads`
+      }
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `content`,
-        path: `${__dirname}/content`,
-      },
+        path: `${__dirname}/content`
+      }
     },
     {
       resolve: `gatsby-plugin-layout`,
       options: {
-        component: require.resolve(`./src/components/siteLayout.js`),
-      },
+        component: require.resolve(`./src/components/siteLayout.js`)
+      }
     },
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-react-helmet`,
@@ -54,11 +45,9 @@ module.exports = {
         name: site.title,
         short_name: site.title,
         start_url: `/`,
-        background_color: theme.color.primary,
-        theme_color: theme.color.primary,
         display: `minimal-ui`,
-        icon: `content/images/icon.png`,
-      },
+        icon: `content/images/icon.png`
+      }
     },
     `gatsby-plugin-offline`,
     {
@@ -68,21 +57,21 @@ module.exports = {
           {
             resolve: "gatsby-remark-relative-images",
             options: {
-              name: "uploads",
-            },
+              name: "uploads"
+            }
           },
           {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 880,
-              withWebp: true,
-            },
+              withWebp: true
+            }
           },
           {
             resolve: "gatsby-remark-copy-linked-files",
             options: {
-              destinationDir: "static",
-            },
+              destinationDir: "static"
+            }
           },
           {
             resolve: `gatsby-remark-prismjs`,
@@ -95,20 +84,21 @@ module.exports = {
               prompt: {
                 user: "root",
                 host: "localhost",
-                global: false,
-              },
-            },
-          },
-        ],
-      },
+                global: false
+              }
+            }
+          }
+        ]
+      }
     },
     {
       resolve: "gatsby-plugin-web-font-loader",
       options: {
         google: {
-          families: ["Lato:400,700"],
-        },
-      },
+          families: ["Lato:400,700"]
+        }
+      }
     },
-  ],
-}
+    "gatsby-plugin-eslint"
+  ]
+};

@@ -37,7 +37,7 @@ export default function Page({ data }) {
                   );
                 break;
               default:
-                return true;
+                return <span>{""}</span>;
             }
           })}
       </>

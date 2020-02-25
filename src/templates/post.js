@@ -30,7 +30,7 @@ function Post(props) {
         <h1>
           <TinaField
             name="rawFrontmatter.title"
-            Component={props => <input type="text" />}
+            Component={() => <input type="text" />}
           >
             {page.frontmatter.title}
           </TinaField>
@@ -69,7 +69,7 @@ function RemarkForm(props) {
           label: "Authors",
           name: "rawFrontmatter.authors",
           component: "authors",
-          authors: authors
+          authors
         },
         {
           name: "rawFrontmatter.draft",
@@ -103,7 +103,7 @@ function RemarkForm(props) {
         }
       ]
     };
-  }, []);
+  }, [authors]);
   const [markdownRemark, form] = useLocalRemarkForm(
     props.data.markdownRemark,
     PostForm
@@ -160,7 +160,12 @@ export const postQuery = graphql`
       rawMarkdownBody
     }
     settingsJson(fileRelativePath: { eq: "/content/settings/authors.json" }) {
-      ...authors
+      authors {
+        email
+        name
+        id
+        link
+      }
     }
   }
 `;

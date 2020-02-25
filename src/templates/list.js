@@ -5,13 +5,12 @@ import { Link } from "gatsby";
 import { PageLayout } from "../components/pageLayout";
 
 import { useLocalJsonForm } from "gatsby-tinacms-json";
-import { DraftBadge } from "../components/style";
 
 export default function List({ data, pageContext }) {
   const [page] = useLocalJsonForm(data.page, ListForm);
-  const [_authors] = useLocalJsonForm(data.authors, AuthorsForm);
+  /* const [authors] = */ useLocalJsonForm(data.authors, AuthorsForm);
 
-  const { slug, _limit, _skip, numPages, currentPage } = pageContext;
+  const { slug, /* _limit, _skip, */ numPages, currentPage } = pageContext;
   const isFirst = currentPage === 1;
   const isLast = currentPage === numPages;
   const prevPage =
@@ -119,7 +118,12 @@ export const pageQuery = graphql`
     authors: settingsJson(
       fileRelativePath: { eq: "/content/settings/authors.json" }
     ) {
-      ...authors
+      authors {
+        email
+        name
+        id
+        link
+      }
 
       rawJson
       fileRelativePath

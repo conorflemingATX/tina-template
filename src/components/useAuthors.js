@@ -1,4 +1,4 @@
-import React from "react";
+/* import React from "react"; */
 import { useStaticQuery, graphql } from "gatsby";
 
 export const useAuthors = () => {
@@ -8,7 +8,12 @@ export const useAuthors = () => {
         settingsJson(
           fileRelativePath: { eq: "/content/settings/authors.json" }
         ) {
-          ...authors
+          authors {
+            email
+            name
+            id
+            link
+          }
         }
       }
     `
@@ -16,14 +21,3 @@ export const useAuthors = () => {
 
   return settingsJson.authors;
 };
-
-export const authorsFragment = graphql`
-  fragment authors on SettingsJson {
-    authors {
-      email
-      name
-      id
-      link
-    }
-  }
-`;

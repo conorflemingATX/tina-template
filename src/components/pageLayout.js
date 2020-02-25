@@ -42,9 +42,9 @@ export const PageLayout = ({ page, children }) => {
     }
   `);
 
-  const [_nav] = useLocalJsonForm(data.nav, NavForm);
-  const [_globalTheme] = useLocalJsonForm(data.theme, ThemeForm);
-  const [_site] = useGlobalJsonForm(data.site, SiteForm);
+  /* const [nav] = */ useLocalJsonForm(data.nav, NavForm);
+  /* const [globalTheme] = */ useLocalJsonForm(data.theme, ThemeForm);
+  /* const [site] = */ useGlobalJsonForm(data.site, SiteForm);
 
   // Theme information -- re-enable when theme is better fleshed out.
   // const themeContext = React.useContext(ThemeContext);

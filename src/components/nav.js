@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useStaticQuery, graphql } from "gatsby";
-import { Moon, Sun } from "styled-icons/boxicons-regular";
-import styled, { css } from "styled-components";
-import { mix, transparentize } from "polished";
 import { Link } from "gatsby";
 
-export const Nav = ({ toggleDarkMode, isDarkMode }) => {
+export const Nav = () => {
   const data = useStaticQuery(graphql`
     query navQuery {
       settingsJson(fileRelativePath: { eq: "/content/settings/menu.json" }) {

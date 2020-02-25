@@ -8,9 +8,9 @@ export const ListAuthors = ({ authorIDs }) => {
 
   const authorList = authors.map((author, index) => {
     if (authors.length === index + 1) {
-      return author.name;
+      return <span>{author.name}</span>;
     } else {
-      return author.name + ", ";
+      return <span>{author.name + ", "}</span>;
     }
   });
 
